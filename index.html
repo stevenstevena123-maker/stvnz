@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Alfonsus Steven</title>
+    <!-- Favicon / Logo di Tab Bar Browser (Google Chrome Tab) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%2305070a' stroke='%2300d4ff' stroke-width='7'/%3E%3Cpath d='M30,35 C35,22 45,20 55,20 C65,20 75,28 72,42 C68,56 32,48 28,62 C24,76 45,80 55,80 C65,80 75,70 75,70' fill='none' stroke='%2300d4ff' stroke-width='13' stroke-linecap='round'/%3E%3C/svg%3E">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Palette Warna Neo-Blue Dark Asli */
+            --bg-deep: #05070a;
+            --bg-card: rgba(10, 15, 25, 0.7);
+            --accent-blue: #00d4ff;
+            --accent-glow: rgba(0, 212, 255, 0.4);
+            
+            /* Warna Neon Brand */
+            --accent-whatsapp: #25D366;
+            --accent-tiktok: #ff0050;
+            --accent-discord: #5865F2;
+            --accent-instagram: #E1306C;
+            
+            --text-main: #e0e6ed;
+            --text-dim: #94a3b8;
+            --border-color: rgba(0, 212, 255, 0.2);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            overflow-y: auto; 
+        }
+
+        h1, h2, h3, h4, .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- Dekorasi Latar Belakang --- */
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+        }
+
+        /* --- Navigasi --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 7, 10, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 9999;
+        }
+
+        @media (min-width: 992px) { nav { padding: 1.5rem 10%; } }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px var(--accent-glow);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .nav-logo:hover { transform: scale(1.1); }
+
+        .menu-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        .menu-btn span {
+            width: 25px; height: 2px;
+            background-color: var(--accent-blue);
+            transition: 0.3s;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 0; right: -100%;
+            width: 75%; height: 100vh;
+            background: rgba(5, 7, 10, 0.98);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+            transition: 0.5s ease-in-out;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .nav-links.active { right: 0; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-links a.active, .nav-links a:hover {
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px var(--accent-glow);
+            transform: scale(1.1);
+        }
+
+        @media (min-width: 992px) {
+            .menu-btn { display: none; }
+            .nav-links {
+                position: static;
+                width: auto; height: auto;
+                flex-direction: row;
+                background: transparent;
+                border: none;
+                gap: 2rem;
+            }
+            .nav-links a { font-size: 0.8rem; letter-spacing: 1px; }
+        }
+
+        /* --- Page Management --- */
+        .page-section {
+            display: none; 
+            min-height: 100vh;
+            padding: 120px 5% 60px;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: sectionAppear 0.6s ease-out forwards;
+        }
+
+        @keyframes sectionAppear {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Home Section --- */
+        .hero-container {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 2rem;
+        }
+
+        @media (min-width: 992px) {
+            .hero-container { flex-direction: row; text-align: left; justify-content: space-between; gap: 4rem; }
+        }
+
+        .hero-content { flex: 1; width: 100%; }
+
+        .hero-image-container {
+            flex-shrink: 0;
+            width: 250px; height: 250px;
+            position: relative;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @media (min-width: 992px) { .hero-image-container { width: 350px; height: 350px; } }
+
+        .profile-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--border-color);
+            box-shadow: 0 0 30px var(--accent-glow);
+            background: linear-gradient(45deg, #0a0f1a, #00d4ff33);
+            transition: var(--transition);
+        }
+        .profile-img:hover { transform: scale(1.05); }
+
+        .hero-content h1 { font-size: clamp(1.8rem, 8vw, 4rem); line-height: 1.1; margin-bottom: 1rem; }
+        .hero-content h1 span { color: var(--accent-blue); text-shadow: 0 0 15px var(--accent-glow); }
+        .hero-content p { max-width: 600px; color: var(--text-dim); font-size: clamp(0.9rem, 4vw, 1.1rem); margin: 0 auto 1.5rem; }
+        @media (min-width: 992px) { .hero-content p { margin-left: 0; } }
+
+        /* --- Buttons & Socials --- */
+        .hero-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        @media (min-width: 992px) { .hero-btns { justify-content: flex-start; } }
+
+        .btn-cv {
+            display: inline-block;
+            padding: 12px 28px;
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            transition: var(--transition);
+            background: transparent;
+            cursor: pointer;
+        }
+        .btn-cv:hover {
+            background: var(--accent-blue);
+            color: var(--bg-deep);
+            box-shadow: 0 0 30px var(--accent-glow);
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            transition: var(--transition);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+        .social-icon:hover {
+            transform: scale(1.2);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* --- Digital Clock (Home Only) --- */
+        .clock-container {
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        @media (min-width: 992px) { .clock-container { text-align: left; } }
+
+        .digital-clock {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px var(--accent-glow);
+            letter-spacing: 2px;
+            transition: var(--transition);
+            cursor: default;
+        }
+        .digital-clock:hover {
+            transform: scale(1.08);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .digital-clock i {
+            font-size: 1.3rem;
+            animation: pulseFlash 2s infinite;
+        }
+
+        @keyframes pulseFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* --- My Skills --- */
+        .skills-container-home { margin-top: 2rem; width: 100%; }
+        .skills-label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; font-weight: 700; opacity: 0.8; }
+
+        .home-skills { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+        @media (min-width: 992px) { .home-skills { justify-content: flex-start; } }
+
+        .skill-tag-home {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            cursor: default;
+        }
+        .skill-tag-home:hover {
+            background: var(--accent-blue);
+            color: var(--bg-deep);
+            box-shadow: 0 10px 20px var(--accent-glow);
+            transform: scale(1.15) translateY(-5px);
+            border-color: var(--accent-blue);
+        }
+
+        /* --- About Section --- */
+        .about-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        .about-card:hover { transform: scale(1.02); border-color: var(--accent-blue); }
+
+        .about-header {
+            display: flex; flex-direction: column; align-items: center; gap: 2.5rem; margin-bottom: 2rem;
+        }
+        @media (min-width: 992px) { .about-header { flex-direction: row; align-items: flex-start; } }
+
+        .about-photo-box {
+            width: 100%; max-width: 300px; aspect-ratio: 4/5; border-radius: 20px; overflow: hidden; border: 2px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .about-photo-box:hover { transform: scale(1.08); border-color: var(--accent-blue); box-shadow: 0 0 30px var(--accent-glow); }
+        .about-photo-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .timeline-item {
+            border-left: 2px solid var(--accent-blue);
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; background: var(--accent-blue); border-radius: 50%;
+        }
+
+        .hobby-list { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; }
+        .hobby-tag { padding: 6px 16px; border: 1px solid var(--border-color); border-radius: 30px; font-size: 0.85rem; color: var(--text-main); transition: var(--transition); }
+        .hobby-tag:hover { border-color: var(--accent-blue); background: rgba(0, 212, 255, 0.05); color: var(--accent-blue); transform: translateY(-3px); }
+
+        .email-card { display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: var(--transition); }
+        .email-card:hover { transform: scale(1.05); border-color: var(--accent-blue); }
+
+        /* --- Projects & Gallery Grid --- */
+        .grid-layout {
+            display: grid; grid-template-columns: 1fr; gap: 1.5rem; width: 100%;
+        }
+        @media (min-width: 768px) { .grid-layout { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1200px) { .grid-layout { grid-template-columns: repeat(3, 1fr); } }
+
+        .gallery-item {
+            position: relative; height: 250px; border-radius: 15px; overflow: hidden; border: 1px solid var(--border-color); transition: var(--transition);
+        }
+        .gallery-item:hover { transform: scale(1.05) translateY(-5px); border-color: var(--accent-blue); }
+        
+        .gallery-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: var(--transition); }
+        .gallery-item:hover .gallery-img { opacity: 1; }
+
+        .gallery-label {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 1rem;
+            background: linear-gradient(transparent, rgba(5, 7, 10, 0.9));
+            color: var(--accent-blue); font-weight: 700; font-size: 0.85rem; text-transform: uppercase;
+        }
+
+        /* --- Contact --- */
+        .contact-content { text-align: center; }
+        .contact-btns {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 3rem;
+        }
+        .si-large {
+            width: 75px; height: 75px; font-size: 2.2rem; border-width: 2px;
+        }
+        .si-large:hover { transform: scale(1.25) rotate(5deg); }
+
+        /* --- Footer --- */
+        footer {
+            padding: 3rem 5% 2rem; text-align: center; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; color: var(--text-dim); opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <nav>
+        <div class="nav-logo" onclick="handleNav('home')">STVN</div>
+        <div class="menu-btn" id="menu-toggle">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a id="link-home" onclick="handleNav('home')" class="active">Home</a></li>
+            <li><a id="link-about" onclick="handleNav('about')">About</a></li>
+            <li><a id="link-projects" onclick="handleNav('projects')">Projects</a></li>
+            <li><a id="link-gallery" onclick="handleNav('gallery')">Gallery</a></li>
+            <li><a id="link-contact" onclick="handleNav('contact')">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- HOME SECTION -->
+        <section id="home" class="page-section active">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <p style="color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 0.5rem;">Network Technician & Developer</p>
+                    <h1>ALFONSUS STEVEN <span>DODIK PUTRA PERDANA</span></h1>
+                    <p>Graduate of Computer Network & Telecommunications Engineering from Klaten 1 State Vocational High School.</p>
+                    
+                    <div class="hero-btns">
+                        <a href="CV ALFONSUS STEVEN.html" class="btn-cv" download="CV_Alfonsus_Steven.html">Download CV</a>
+                        <a href="https://wa.me/085640787703" target="_blank" class="social-icon" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+
+                    <!-- Digital Clock Section (Home Only) - Indonesia Time -->
+                    <div class="clock-container">
+                        <span class="skills-label">Indonesia Live Clock</span>
+                        <div class="digital-clock" id="live-clock">
+                            <i class="far fa-clock"></i> <span id="clock-time">00:00:00</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-container-home">
+                        <span class="skills-label">My Skills</span>
+                        <div class="home-skills">
+                            <span class="skill-tag-home"><i class="fab fa-html5"></i> HTML</span>
+                            <span class="skill-tag-home"><i class="fab fa-css3-alt"></i> CSS</span>
+                            <span class="skill-tag-home"><i class="fab fa-debian"></i> Debian</span>
+                            <span class="skill-tag-home">
+                                <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L0 12l1.414 1.414L12 2.828l10.586 10.586L24 12zM0 12v12h24V12l-1.414-1.414L12 21.172 1.414 10.586z"/></svg>
+                                Mikrotik
+                            </span>
+                            <span class="skill-tag-home">
+                                <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M12.22 0C5.37 0 0 5.37 0 12.22c0 6.85 5.37 12.22 12.22 12.22 6.85 0 12.22-5.37 12.22-12.22C24.44 5.37 19.07 0 12.22 0zm0 2.22c5.52 0 10 4.48 10 10s-4.48 10-10 10-10-4.48-10-10 4.48-10 10-10zM12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/></svg>
+                                Canva
+                            </span>
+                            <span class="skill-tag-home">
+                                <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><path d="M3 14v4h1v-4H3zm3-3v7h1v-7H6zm3-3v10h1V8H9zm3-3v13h1V5h-1zm3 3v10h1V8h-1zm3 3v7h1v-7h-1zm3 3v4h1v-4h-1z"/></svg>
+                                Cisco
+                            </span>
+                            <span class="skill-tag-home"><i class="fas fa-window-maximize"></i> Winbox</span>
+                            <span class="skill-tag-home"><i class="fab fa-node-js"></i> Node JS</span>
+                            <span class="skill-tag-home"><i class="fab fa-react"></i> React JS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image-container">
+                    <img src="https://i.ibb.co.com/99YD4Lc4/IMG-20260416-WA0047.jpg" alt="[Alfonsus Home Profile]" class="profile-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="page-section">
+            <h2 style="margin-bottom: 2rem;">About <span>Me</span></h2>
+            <div class="about-header">
+                <div class="about-photo-box">
+                    <img src="https://i.ibb.co.com/dSjdh0d/IMG-20260101-WA0098.jpg" alt="[Steven Profile]">
+                </div>
+                <div style="flex: 1;">
+                    <div class="about-card" style="margin-bottom: 1.5rem;">
+                        <span class="skills-label">Biography</span>
+                        <p>My name is Alfonsus Steven Dodik Putra Perdana. I am a graduate of Klaten 1 State Vocational High School, majoring in Computer Network and Telecommunications Engineering (TJKT).</p>
+                    </div>
+                    <div class="about-card">
+                        <span class="skills-label">Education History</span>
+                        <div class="timeline-item">
+                            <div style="font-weight: 700;">Manjung 1 State Elementary School</div>
+                            <div style="color: var(--text-dim); font-size: 0.9rem;">Elementary Education (2014 - 2020)</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div style="font-weight: 700;">Pangudi Luhur 1 Junior High School, Klaten</div>
+                            <div style="color: var(--text-dim); font-size: 0.9rem;">Junior High Education (2020 - 2023)</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div style="font-weight: 700;">Klaten 1 State Vocational High School</div>
+                            <div style="color: var(--text-dim); font-size: 0.9rem;">Vocational High Education - TJKT (2023 - 2026)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hobbies -->
+            <div class="about-card">
+                <span class="skills-label">Hobbies & Interests</span>
+                <div class="hobby-list">
+                    <span class="hobby-tag">Running</span>
+                    <span class="hobby-tag">Music</span>
+                    <span class="hobby-tag">Canva</span>
+                    <span class="hobby-tag">Gaming</span>
+                    <span class="hobby-tag">Reading</span>
+                    <span class="hobby-tag">Coding</span>
+                    <span class="hobby-tag">Debian Linux</span>
+                </div>
+            </div>
+
+            <!-- Email Card -->
+            <div class="about-card email-card" onclick="window.location.href='mailto:stevenstevena123@gmail.com'">
+                <div>
+                    <span class="skills-label">Personal Email</span>
+                    <p style="font-weight: 700; color: var(--accent-blue);">stevenstevena123@gmail.com</p>
+                </div>
+                <i class="fas fa-paper-plane" style="font-size: 1.5rem; color: var(--accent-blue);"></i>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="page-section">
+            <h2 style="margin-bottom: 2.5rem;">My <span>Projects</span></h2>
+            <div class="grid-layout">
+                <div class="about-card">
+                    <h3 style="color: var(--accent-blue); font-size: 1.1rem; margin-bottom: 0.5rem;">WordPress</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">Developing dynamic websites using WordPress CMS with custom themes.</p>
+                </div>
+                <div class="about-card">
+                    <h3 style="color: var(--accent-blue); font-size: 1.1rem; margin-bottom: 0.5rem;">Linux Debian</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">Operating system implementation for stable server infrastructure.</p>
+                </div>
+                <div class="about-card">
+                    <h3 style="color: var(--accent-blue); font-size: 1.1rem; margin-bottom: 0.5rem;">Server Administration</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">Advanced server management, DNS, Web Server, and security.</p>
+                </div>
+                <div class="about-card">
+                    <h3 style="color: var(--accent-blue); font-size: 1.1rem; margin-bottom: 0.5rem;">Mikrotik</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">Physical router configuration, bandwidth management, and firewalls.</p>
+                </div>
+                <div class="about-card">
+                    <h3 style="color: var(--accent-blue); font-size: 1.1rem; margin-bottom: 0.5rem;">Cisco</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">Switch & Router configuration (VLAN, Routing protocols).</p>
+                </div>
+                <div class="about-card">
+                    <h3 style="color: var(--accent-blue); font-size: 1.1rem; margin-bottom: 0.5rem;">Visual Studio Code</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">IDE optimization for efficient coding and debugging.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY SECTION -->
+        <section id="gallery" class="page-section">
+            <h2 style="margin-bottom: 2.5rem;">Gallery</h2>
+            <div class="grid-layout">
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co.com/9k1zGH2D/IMG-20260418-101427-HDR.jpg" class="gallery-img" alt="Yogyakarta">
+                    <div class="gallery-label">Yogyakarta</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co.com/HLLSWpqt/IMG-20251225-170333-HDR.jpg" class="gallery-img" alt="Solo">
+                    <div class="gallery-label">Solo</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co.com/60gf21XX/IMG-20250212-082503-HDR.jpg" class="gallery-img" alt="Klaten">
+                    <div class="gallery-label">Klaten</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co.com/xq4W5psJ/IMG-20220609-141417.jpg" class="gallery-img" alt="Bandung">
+                    <div class="gallery-label">Bandung</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co.com/tPFbsnM8/IMG-20241009-WA0035.jpg" class="gallery-img" alt="TJKT">
+                    <div class="gallery-label">TJKT</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co.com/KpfdzzVf/Whats-App-Image-2026-03-13-at-10-39-32-1.jpg" class="gallery-img" alt="Field Work Practice (PKL)">
+                    <div class="gallery-label">Field Work Practice (PKL)</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co.com/0p8f80zN/IMG-20260405-WA0006.jpg" class="gallery-img" alt="Catholic Youth Community">
+                    <div class="gallery-label">Catholic Youth Community</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co.com/LztCjcbn/DSC07531.jpg" class="gallery-img" alt="Running">
+                    <div class="gallery-label">Running</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co.com/mrkB58hb/IMG-20260418-123553-HDR.jpg" class="gallery-img" alt="Catholic Pilgrimage">
+                    <div class="gallery-label">Catholic Pilgrimage</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co.com/nqNwW9mY/ukk-h1-2026-04-06-08-07-24.webp" class="gallery-img" alt="Vocational Competency Test (UKK)">
+                    <div class="gallery-label">Vocational Competency Test (UKK)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="page-section">
+            <div class="contact-content">
+                <h2>Contact <span>Me</span></h2>
+                <p style="color: var(--text-dim); margin-top: 1rem;">Please contact me through the following platforms.</p>
+                <div class="contact-btns">
+                    <a href="https://wa.me/085640787703" target="_blank" class="social-icon si-large" style="color: var(--accent-whatsapp);"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.tiktok.com/@alfnstvn" target="_blank" class="social-icon si-large" style="color: var(--accent-tiktok);"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/stevenxyx187" target="_blank" class="social-icon si-large" style="color: var(--accent-instagram);"><i class="fab fa-instagram"></i></a>
+                    <a href="https://discord.com/users/1399722199920672768" target="_blank" class="social-icon si-large" style="color: var(--accent-discord);"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <footer>© 2026 STVN</footer>
+    </main>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+
+        function handleNav(pageId) {
+            switchPage(pageId);
+            navMenu.classList.remove('active');
+        }
+
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const targetSection = document.getElementById(pageId);
+            if (targetSection) targetSection.classList.add('active');
+            
+            const targetLink = document.getElementById(`link-${pageId}`);
+            if (targetLink) targetLink.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.querySelector('.bg-glow');
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            glow.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(0, 212, 255, 0.08) 0%, transparent 60%)`;
+        });
+
+        // Live Digital Clock Functionality (Indonesia Time - WIB with AM/PM)
+        function updateLiveClock() {
+            const timeSpan = document.getElementById('clock-time');
+            if (timeSpan) {
+                const now = new Date();
+                // Mengonversi waktu ke zona waktu Jakarta (WIB) secara dinamis dalam format 12 jam (AM/PM)
+                const idTimeStr = now.toLocaleTimeString('en-US', {
+                    timeZone: 'Asia/Jakarta',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true
+                });
+                timeSpan.textContent = idTimeStr;
+            }
+        }
+        setInterval(updateLiveClock, 1000);
+        updateLiveClock(); // run immediately
+    </script>
+</body>
+</html>
